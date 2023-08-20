@@ -1,8 +1,30 @@
-# The Simpliciality of Data
+# Simplicial is a spectrum
 
-Some things:
+This repository accompanies the preprint, "Simpliciality is a spectrum: Quantifying the prevalence of downward closures in  empirical hypergraphs" by Nicholas Landry, Jean-Gabriel Young, and Nicole Eikmeier.
 
-* To run the unit tests, you need to pip install the package locally. Navigate to the local folder on your computer and run "pip install -e ."
-* To run the unit tests, run "pytest" in the command line.
-* The package is referenced as `sod` (Simpliciality of data) when accessing the functionality.
-* There are also distance versions of some simpliciality measures in the code, but those are not currently used in the paper.
+### The structure of this repository is as follows:
+* The `Data` folder contains all of the global characteristics of the datasets (shown in Table 1 in the text), the `Figures` folder contains PDF and PNG files for each of the figures in the paper, and the `tests` folder contains unit tests to validate the code written for generating our results.
+* The `sod` (Simpliciality of Data) folder contains all of the measures of simpliciality used in the paper as well as any utility functions.
+
+### General things:
+* To run the unit tests and use the package, you need to pip install the package locally. Navigate to the local folder on your computer and run
+```
+pip install -e .
+```
+* To run the unit tests, run `pytest` in the command line.
+* The package is referenced as `sod` (Simpliciality of Data) when accessing the functionality.
+* There are also distance versions of some simpliciality measures in the code.
+
+### Scripts
+* `draw.py` provides some additional functionality for drawing the multilayer hypergraph visualizations.
+* `empirical_simpliciality.py` measures the simpliciality (all three measures) of the empirical datasets and stores the results in a JSON file in the `Data` folder.
+* `generate_dcsbm_parameters.py` infers the parameters of the biSBM for a given empirical dataset for use in the model fitting script and stores as a JSON file in the `Data` folder.
+* `model_fitting.py` generates realizations of the generative models, measures the resulting simpliciality, and then stores the results in a JSON file in the `Data` folder.
+* `setup.py` allows users to pip install this package.
+
+### Notebooks
+* `plot_empiricial_simpliciality.ipynb` generates a plot of the simpliciality for empirical datasets, which is unused in the text.
+* `plot_model_fitting.ipynb` generates Fig. 2 in the text.
+* `local_simpliciality.ipynb` generates Fig. 3 in the text as well as corresponding local measures.
+* `dataset_characteristics.ipynb` generates the results in Table 1 except the measures of simpliciality.
+* `illustrations.ipynb` generates the diagrams used in Fig. 1 in the text.
