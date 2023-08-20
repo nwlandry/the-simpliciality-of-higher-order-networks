@@ -1,0 +1,74 @@
+{
+  "contact-primary-school": {
+    "num-nodes": 242,
+    "num-edges": 12704,
+    "mean-degree": 52.49586776859504,
+    "mean-edge-size": 2.4188444584382873
+  },
+  "contact-high-school": {
+    "num-nodes": 327,
+    "num-edges": 7818,
+    "mean-degree": 23.908256880733944,
+    "mean-edge-size": 2.3269378357636223
+  },
+  "hospital-lyon": {
+    "num-nodes": 75,
+    "num-edges": 1824,
+    "mean-degree": 24.32,
+    "mean-edge-size": 2.4270833333333335
+  },
+  "email-enron": {
+    "num-nodes": 143,
+    "num-edges": 1442,
+    "mean-degree": 10.083916083916083,
+    "mean-edge-size": 2.9743411927877945
+  },
+  "email-eu": {
+    "num-nodes": 967,
+    "num-edges": 23729,
+    "mean-degree": 24.538779731127196,
+    "mean-edge-size": 3.1225083231488897
+  },
+  "coauth-mag-geology": {
+    "num-nodes": 1061562,
+    "num-edges": 898649,
+    "mean-degree": 0.8465346348117209,
+    "mean-edge-size": 3.724881460948602
+  },
+  "coauth-mag-history": {
+    "num-nodes": 448593,
+    "num-edges": 248633,
+    "mean-degree": 0.5542507350761158,
+    "mean-edge-size": 2.7203106586816714
+  },
+  "ndc-substances": {
+    "num-nodes": 2740,
+    "num-edges": 4754,
+    "mean-degree": 1.735036496350365,
+    "mean-edge-size": 5.155658392932268
+  },
+  "diseasome": {
+    "num-nodes": 516,
+    "num-edges": 314,
+    "mean-degree": 0.6085271317829457,
+    "mean-edge-size": 3.0
+  },
+  "disgenenet": {
+    "num-nodes": 1982,
+    "num-edges": 760,
+    "mean-degree": 0.3834510595358224,
+    "mean-edge-size": 5.1381578947368425
+  },
+  "congress-bills": {
+    "num-nodes": 1715,
+    "num-edges": 58788,
+    "mean-degree": 34.27871720116618,
+    "mean-edge-size": 4.947659386269307
+  },
+  "tags-ask-ubuntu": {
+    "num-nodes": 3021,
+    "num-edges": 145053,
+    "mean-degree": 48.01489572989077,
+    "mean-edge-size": 3.42722315291652
+  }
+}
