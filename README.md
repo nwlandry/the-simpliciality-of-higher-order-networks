@@ -1,0 +1,2 @@
+# simpliciality is a spectrum
+ 
