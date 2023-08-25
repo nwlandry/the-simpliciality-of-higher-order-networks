@@ -35,6 +35,9 @@ def edit_simpliciality(H, min_size=2, exclude_min_size=True):
         .filterby("size", min_size + exclude_min_size, "geq")
         .members(dtype=dict)
     )
+    if not maxH.edges:
+        return np.nan
+
     ms = 0
     for id1, e in maxH.edges.members(dtype=dict).items():
         redundant_missing_faces = set()
