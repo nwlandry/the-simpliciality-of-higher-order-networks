@@ -11,6 +11,11 @@ This repository accompanies the preprint, "Simpliciality is a spectrum: Quantify
 ```
 pip install -e .
 ```
+if you wish to be able to edit the distribution and
+```
+pip install .
+```
+if you don't.
 * To run the unit tests, run `pytest` in the command line.
 * The package is referenced as `sod` (Simpliciality of Data) when accessing the functionality.
 * There are also distance versions of some simpliciality measures in the code.
@@ -23,8 +28,9 @@ pip install -e .
 * `setup.py` allows users to pip install this package.
 
 ### Notebooks
-* `plot_empiricial_simpliciality.ipynb` generates a plot of the simpliciality for empirical datasets, which is unused in the text.
+* `plot_empiricial_simpliciality.ipynb` generates a plot of the simpliciality for empirical datasets, which is unused in the text. It also prints 
 * `plot_model_fitting.ipynb` generates Fig. 2 in the text.
 * `local_simpliciality.ipynb` generates Fig. 3 in the text as well as corresponding local measures.
 * `dataset_characteristics.ipynb` generates the results in Table 1 except the measures of simpliciality.
 * `illustrations.ipynb` generates the diagrams used in Fig. 1 in the text.
+* `simpliciality_correlation.ipynb` generates the correlation coefficients referenced in the text.
