@@ -1,6 +1,6 @@
-# Simplicial is a spectrum
+# The simpliciality of higher-order networks
 
-This repository accompanies the preprint, "Simpliciality is a spectrum: Quantifying the prevalence of downward closures in  empirical hypergraphs" by Nicholas Landry, Jean-Gabriel Young, and Nicole Eikmeier.
+This repository accompanies the preprint, "The simpliciality of higher-order networks" by Nicholas Landry, Jean-Gabriel Young, and Nicole Eikmeier.
 
 ### The structure of this repository is as follows:
 * The `Data` folder contains all of the global characteristics of the datasets (shown in Table 1 in the text), the `Figures` folder contains PDF and PNG files for each of the figures in the paper, and the `tests` folder contains unit tests to validate the code written for generating our results.
