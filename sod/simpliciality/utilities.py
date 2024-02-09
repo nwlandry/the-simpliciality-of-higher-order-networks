@@ -99,3 +99,34 @@ def max_number_of_subfaces(min_size, max_size):
     for i in range(1, min_size):
         d -= binom(max_size, i)
     return int(d)
+
+
+def simplicial_assortativity(H, metric, weighted=False):
+    match metric:
+        case "sf":
+            s = H.nodes.local_simplicial_fraction.asnumpy()
+        case "es":
+            s = H.nodes.local_edit_simpliciality.asnumpy()
+        case "fes":
+            s = H.nodes.local_face_edit_simpliciality.asnumpy()
+        case _:
+            raise Exception(f"{metric} is an invalid metric!")
+
+    A = xgi.adjacency_matrix(H, sparse=False, weighted=True)
+    n = np.size(A, 0)
+    x = []
+    y = []
+    for i in range(n):
+        for j in range(i):
+            if A[i, j] and not np.isnan(s[i]) and not np.isnan(s[j]):
+                if weighted:
+                    x.extend([s[i]] * int(A[i, j]))
+                    x.extend([s[j]] * int(A[i, j]))
+                    y.extend([s[j]] * int(A[i, j]))
+                    y.extend([s[i]] * int(A[i, j]))
+                else:
+                    x.append(s[i])
+                    x.append(s[j])
+                    y.append(s[j])
+                    y.append(s[i])
+    return np.corrcoef(x, y)[0, 1]

@@ -58,7 +58,7 @@ except:
 
         max_log = np.log10(10 * m)
 
-        num_swaps = np.logspace(1, max_log, num_num_swaps)
+        num_swaps = np.logspace(1, max_log, num_num_swaps).astype(int)
 
         # configuration model
         for nswaps in num_swaps:
