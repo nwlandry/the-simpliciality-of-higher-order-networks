@@ -1,10 +1,11 @@
 import json
-import multiprocessing as mp
 import os
 import sys
+from sys import platform
 
 import numpy as np
 import xgi
+from joblib import Parallel, delayed
 
 from sod import *
 
@@ -45,7 +46,11 @@ def dcsbm_in_parallel(d, s, g1, g2, omega, min_size):
 # args
 dataset = sys.argv[1]
 realizations = int(sys.argv[2])
-num_processes = len(os.sched_getaffinity(0))
+
+if platform == "linux" or platform == "linux2":
+    num_processes = len(os.sched_getaffinity(0))
+elif platform == "darwin" or platform == "win32":
+    num_processes = os.cpu_count()
 
 max_order = 10
 min_size = 2
@@ -86,8 +91,9 @@ except:
     for i in range(realizations):
         arglist.append((H, min_size))
 
-    with mp.Pool(processes=num_processes) as pool:
-        cm_data = pool.starmap(cm_in_parallel, arglist)
+    cm_data = Parallel(n_jobs=num_processes)(
+        delayed(cm_in_parallel)(*arg) for arg in arglist
+    )
 
     data["CM"]["sf"] = [d[0] for d in cm_data]
     data["CM"]["es"] = [d[1] for d in cm_data]
@@ -98,8 +104,9 @@ except:
     for i in range(realizations):
         arglist.append((k, s, min_size))
 
-    with mp.Pool(processes=num_processes) as pool:
-        cl_data = pool.starmap(cl_in_parallel, arglist)
+    cl_data = Parallel(n_jobs=num_processes)(
+        delayed(cl_in_parallel)(*arg) for arg in arglist
+    )
 
     data["CL"]["sf"] = [d[0] for d in cl_data]
     data["CL"]["es"] = [d[1] for d in cl_data]
@@ -120,8 +127,9 @@ except:
     for i in range(realizations):
         arglist.append((d, s, g1, g2, omega, min_size))
 
-    with mp.Pool(processes=num_processes) as pool:
-        dcsbm_data = pool.starmap(dcsbm_in_parallel, arglist)
+    dcsbm_data = Parallel(n_jobs=num_processes)(
+        delayed(dcsbm_in_parallel)(*arg) for arg in arglist
+    )
 
     data["DCSBM"]["sf"] = [d[0] for d in dcsbm_data]
     data["DCSBM"]["es"] = [d[1] for d in dcsbm_data]

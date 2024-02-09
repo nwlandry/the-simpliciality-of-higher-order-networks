@@ -1,7 +1,6 @@
 import json
 import os
 
-import numpy as np
 import xgi
 
 from sod import *
