@@ -9,11 +9,11 @@ from sod import *
 
 
 def get_simplicial_assortativity(dataset, max_order, metric):
-    H = xgi.load_xgi_data(d, max_order=max_order)
+    H = xgi.load_xgi_data(dataset, max_order=max_order)
     H.cleanup()
 
     a = simplicial_assortativity(H, metric)
-
+    print(f"{dataset}-{metric} completed!", flush=True)
     return dataset, metric, a
 
 
@@ -30,13 +30,15 @@ datasets = [
     "tags-ask-ubuntu",
 ]
 
-max_order = 10
+max_order = 2
 metrics = ["sf", "es", "fes"]
 
 if platform == "linux" or platform == "linux2":
     num_processes = len(os.sched_getaffinity(0))
 elif platform == "darwin" or platform == "win32":
     num_processes = os.cpu_count()
+
+print(f"{num_processes} processes", flush=True)
 
 arglist = []
 for d in datasets:
@@ -46,11 +48,12 @@ for d in datasets:
 data = Parallel(n_jobs=num_processes)(
     delayed(get_simplicial_assortativity)(*arg) for arg in arglist
 )
+print(data)
 
 a_data = defaultdict(lambda: defaultdict(list))
 for d, metric, a in data:
     a_data[d][metric].append(a)
 
 with open("Data/empirical_simplicial_assortativity.json", "w") as file:
-    datastring = json.dumps(data, indent=2)
+    datastring = json.dumps(a_data, indent=2)
     file.write(datastring)

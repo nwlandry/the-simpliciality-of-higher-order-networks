@@ -16,15 +16,12 @@ def cm_in_parallel(H, dataset_name, num_swaps, min_size):
     es = edit_simpliciality(H_CM, min_size=min_size)
     fes = face_edit_simpliciality(H_CM, min_size=min_size)
 
-    print("CM completed", flush=True)
+    print(f"{dataset_name}-{num_swaps} completed", flush=True)
     return dataset_name, num_swaps, sf, es, fes
 
 
 # args
-datasets = [
-    "email-enron",
-    "contact-high-school",
-]  # , "ndc-substances", "tags-ask-ubuntu"]
+datasets = ["email-enron", "contact-high-school", "ndc-substances", "tags-ask-ubuntu"]
 realizations = 1
 
 if platform == "linux" or platform == "linux2":
@@ -32,6 +29,7 @@ if platform == "linux" or platform == "linux2":
 elif platform == "darwin" or platform == "win32":
     num_processes = os.cpu_count()
 
+print(f"{num_processes} processes", flush=True)
 
 max_order = 10
 min_size = 2
@@ -69,7 +67,7 @@ except:
 
     data = {d: defaultdict(list) for d in datasets}
     for name, nswaps, sf, es, fes in cm_data:
-        data[name]["num-swaps"].append(nswaps)
+        data[name]["num-swaps"].append(int(nswaps))
         data[name]["sf"].append(sf)
         data[name]["es"].append(es)
         data[name]["fes"].append(fes)
