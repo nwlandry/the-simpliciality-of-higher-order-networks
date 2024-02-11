@@ -16,7 +16,7 @@ def truncated_power_law_mean(minval, maxval, r):
     return (r - 1) / (r - 2) * (a - b) / (c - d)
 
 
-def list_of_lists_to_latex_table(data, column_labels):
+def list_of_lists_to_latex_table(data, column_labels, decimals=2):
     """list of lists and column labels to latex table
 
     Parameters
@@ -42,7 +42,12 @@ def list_of_lists_to_latex_table(data, column_labels):
     print(" & ".join([str(e) for e in column_labels]) + " \\\ ")
     print("\\hline")
     for row in data:
-        print(" & ".join([str(e) for e in row]) + " \\\ ")
+        print(
+            " & ".join(
+                [str(round(e, decimals) if isinstance(e, float) else e) for e in row]
+            )
+            + " \\\ "
+        )
     print("\\end{tabular}")
     print("\\end{center}")
     print("\\end{table}")

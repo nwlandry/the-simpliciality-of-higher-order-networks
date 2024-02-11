@@ -113,7 +113,7 @@ def simplicial_assortativity(H, metric, weighted=False):
             raise Exception(f"{metric} is an invalid metric!")
 
     A = xgi.adjacency_matrix(H, sparse=False, weighted=True)
-    n = np.size(A, 0)
+    n = A.shape[0]
     x = []
     y = []
     for i in range(n):

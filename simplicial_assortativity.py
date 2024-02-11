@@ -48,11 +48,10 @@ for d in datasets:
 data = Parallel(n_jobs=num_processes)(
     delayed(get_simplicial_assortativity)(*arg) for arg in arglist
 )
-print(data)
 
-a_data = defaultdict(lambda: defaultdict(list))
+a_data = defaultdict(dict)
 for d, metric, a in data:
-    a_data[d][metric].append(a)
+    a_data[d][metric] = a
 
 with open("Data/empirical_simplicial_assortativity.json", "w") as file:
     datastring = json.dumps(a_data, indent=2)
