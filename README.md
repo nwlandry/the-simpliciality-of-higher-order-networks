@@ -20,6 +20,8 @@ if you don't.
 * The package is referenced as `sod` (Simpliciality of Data) when accessing the functionality.
 * There are also distance versions of some simpliciality measures in the code.
 
+Note: `sod` requires **Python 3.10+**!
+
 ### Scripts
 * `draw.py` provides some additional functionality for drawing the multilayer hypergraph visualizations.
 * `empirical_simpliciality.py` measures the simpliciality (all three measures) of the empirical datasets and stores the results in a JSON file in the `Data` folder.
