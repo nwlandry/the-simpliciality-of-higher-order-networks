@@ -59,8 +59,9 @@ def edit_simpliciality(H, min_size=2, exclude_min_size=True):
         ms += nm - nf - rmf
 
     try:
+        mf = len(maxH.edges)
         s = len(edges)
-        return s / (ms + s)
+        return (s - mf) / (ms + s - mf)
     except ZeroDivisionError:
         return np.nan
 
@@ -99,7 +100,8 @@ def edit_simpliciality_full_construction(H, min_size=2, exclude_min_size=True):
 
     try:
         s = len(edges)
+        mf = len(max_edges)
         m = len(ms)
-        return s / (m + s)
+        return (s - mf) / (m + s - mf)
     except ZeroDivisionError:
         return np.nan
