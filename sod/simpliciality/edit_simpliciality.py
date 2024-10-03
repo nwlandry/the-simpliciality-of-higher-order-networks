@@ -1,12 +1,12 @@
 import numpy as np
-import xgi
 
 from ..trie import Trie
-from .utilities import count_subfaces, max_number_of_subfaces, missing_subfaces
+from .simplicial_edit_distance import simplicial_edit_distance
+from .utilities import missing_subfaces
 
 
 def edit_simpliciality(H, min_size=2, exclude_min_size=True):
-    """Computes the simplicial edit distance.
+    """Computes the edit simpliciality.
 
     The number of edges needed to be added
     to a hypergraph to make it a simplicial complex.
@@ -15,55 +15,31 @@ def edit_simpliciality(H, min_size=2, exclude_min_size=True):
     ----------
     H : xgi.Hypergraph
         The hypergraph of interest
-    min_size: int, default: 1
+    min_size: int, default: 2
         The minimum hyperedge size to include when
         calculating whether a hyperedge is a simplex
         by counting subfaces.
+    exclude_min_size : bool, optional
+        Whether to include minimal simplices when counting simplices, by default True
 
     Returns
     -------
-    int
+    float
         The edit simpliciality
+
+    See Also
+    --------
+    simplicial_edit_distance
+
+    References
+    ----------
+    "The simpliciality of higher-order order networks"
+    by Nicholas Landry, Jean-Gabriel Young, and Nicole Eikmeier,
+    *EPJ Data Science* **13**, 17 (2024).
     """
-    edges = H.edges.filterby("size", min_size, "geq").members()
-
-    t = Trie()
-    t.build_trie(edges)
-
-    maxH = xgi.Hypergraph(
-        H.edges.maximal()
-        .filterby("size", min_size + exclude_min_size, "geq")
-        .members(dtype=dict)
+    return 1 - simplicial_edit_distance(
+        H, min_size=min_size, exclude_min_size=exclude_min_size
     )
-    if not maxH.edges:
-        return np.nan
-
-    ms = 0
-    for id1, e in maxH.edges.members(dtype=dict).items():
-        redundant_missing_faces = set()
-        for id2 in maxH.edges.neighbors(id1):
-            if id2 < id1:
-                c = maxH._edge[id2].intersection(e)
-                if len(c) >= min_size:
-                    redundant_missing_faces.update(missing_subfaces(t, c, min_size))
-
-                    # we don't have to worry about the intersection being a max face
-                    # because a) there are no multiedges and b) these are all maximal
-                    # faces so no inclusions.
-                    if not t.search(c):
-                        redundant_missing_faces.add(frozenset(c))
-
-        nm = max_number_of_subfaces(min_size, len(e))
-        nf = count_subfaces(t, e, min_size)
-        rmf = len(redundant_missing_faces)
-        ms += nm - nf - rmf
-
-    try:
-        mf = len(maxH.edges)
-        s = len(edges)
-        return (s - mf) / (ms + s - mf)
-    except ZeroDivisionError:
-        return np.nan
 
 
 def edit_simpliciality_full_construction(H, min_size=2, exclude_min_size=True):
@@ -98,10 +74,10 @@ def edit_simpliciality_full_construction(H, min_size=2, exclude_min_size=True):
     for e in max_edges:
         ms.update(missing_subfaces(t, e, min_size=min_size))
 
-    try:
-        s = len(edges)
-        mf = len(max_edges)
-        m = len(ms)
+    s = len(edges)
+    mf = len(max_edges)
+    m = len(ms)
+    if m + s - mf > 0:
         return (s - mf) / (m + s - mf)
-    except ZeroDivisionError:
+    else:
         return np.nan

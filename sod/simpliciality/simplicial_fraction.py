@@ -5,6 +5,30 @@ from .utilities import powerset
 
 
 def simplicial_fraction(H, min_size=2, exclude_min_size=True):
+    """Computing the simplicial fraction for a hypergraph.
+
+    What fraction of the hyperedges are simplices?
+
+    Parameters
+    ----------
+    H : Hypergraph
+        The hypergraph of interest
+    min_size : int, optional
+        The minimum edge size to consider a simplex, by default 2
+    exclude_min_size : bool, optional
+        Whether to include minimal simplices when counting simplices, by default True
+
+    Returns
+    -------
+    float
+        The simplicial fraction
+
+    References
+    ----------
+    "The simpliciality of higher-order order networks"
+    by Nicholas Landry, Jean-Gabriel Young, and Nicole Eikmeier,
+    *EPJ Data Science* **13**, 17 (2024).
+    """
     try:
         ns = count_simplices(H, min_size, exclude_min_size)
         ps = potential_simplices(H, min_size, exclude_min_size)
