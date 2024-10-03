@@ -55,6 +55,7 @@ elif platform == "darwin" or platform == "win32":
 max_order = 10
 min_size = 2
 
+print(f"{dataset} started", flush=True)
 
 if not os.path.exists("Data"):
     os.mkdir("Data")
