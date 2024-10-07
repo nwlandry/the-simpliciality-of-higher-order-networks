@@ -1,5 +1,3 @@
-import xgi
-
 from sod import Trie, count_missing_subfaces, max_number_of_subfaces, powerset
 
 
@@ -38,7 +36,7 @@ def test_powerset():
 
 
 def test_count_missing_subfaces(h_missing_one_link):
-    t = xgi.Trie()
+    t = Trie()
     t.build_trie(h_missing_one_link.edges.members())
     assert count_missing_subfaces(t, {1}, min_size=2) == 0
     assert count_missing_subfaces(t, {2, 3}, min_size=2) == 0

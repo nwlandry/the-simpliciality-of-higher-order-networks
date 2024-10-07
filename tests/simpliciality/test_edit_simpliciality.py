@@ -9,58 +9,58 @@ def test_edit_simpliciality(
     h1,
 ):
     # simplicial complex
-    es = xgi.edit_simpliciality(sc1_with_singletons)
+    es = edit_simpliciality(sc1_with_singletons)
     assert es == 1.0
 
-    es = xgi.edit_simpliciality(sc1_with_singletons, min_size=1)
+    es = edit_simpliciality(sc1_with_singletons, min_size=1)
     assert es == 1.0
 
-    es = xgi.edit_simpliciality(sc1_with_singletons, min_size=1, exclude_min_size=False)
+    es = edit_simpliciality(sc1_with_singletons, min_size=1, exclude_min_size=False)
     assert es == 1.0
 
     # h1
-    es = xgi.edit_simpliciality(h_missing_one_singleton)
+    es = edit_simpliciality(h_missing_one_singleton)
     assert es == 1.0
 
-    es = xgi.edit_simpliciality(h_missing_one_singleton, min_size=1)
+    es = edit_simpliciality(h_missing_one_singleton, min_size=1)
     assert np.allclose(es, 5 / 6)
 
-    es = xgi.edit_simpliciality(
+    es = edit_simpliciality(
         h_missing_one_singleton, min_size=1, exclude_min_size=False
     )
     assert np.allclose(es, 5 / 6)
 
     # h2
-    es = xgi.edit_simpliciality(h_missing_one_link)
+    es = edit_simpliciality(h_missing_one_link)
     assert np.allclose(es, 2 / 3)
 
-    es = xgi.edit_simpliciality(h_missing_one_link, min_size=1)
+    es = edit_simpliciality(h_missing_one_link, min_size=1)
     assert np.allclose(es, 5 / 6)
 
     # links and triangles 2
-    es = xgi.edit_simpliciality(h_links_and_triangles2)
+    es = edit_simpliciality(h_links_and_triangles2)
     assert np.allclose(es, 2 / 3)
 
-    es = xgi.edit_simpliciality(h_links_and_triangles2, min_size=1)
+    es = edit_simpliciality(h_links_and_triangles2, min_size=1)
     assert np.allclose(es, 1 / 3)
 
-    es = xgi.edit_simpliciality(h_links_and_triangles2, exclude_min_size=False)
+    es = edit_simpliciality(h_links_and_triangles2, exclude_min_size=False)
     assert np.allclose(es, 3 / 5)
 
     # test h1
-    es = xgi.edit_simpliciality(h1)
+    es = edit_simpliciality(h1)
     s = 4
     m = 4 + 10
     mf = 3
     assert np.allclose(es, (s - mf) / (m + s - mf))
 
-    es = xgi.edit_simpliciality(h1, min_size=1)
+    es = edit_simpliciality(h1, min_size=1)
     s = 4
     m = 4 + 10 + 7
     mf = 3
     assert np.allclose(es, (s - mf) / (m + s - mf))
 
-    es = xgi.edit_simpliciality(h1, exclude_min_size=False)
+    es = edit_simpliciality(h1, exclude_min_size=False)
     s = 4
     m = 4 + 10
     mf = 3
