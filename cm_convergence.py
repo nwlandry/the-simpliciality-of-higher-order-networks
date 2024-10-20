@@ -41,37 +41,33 @@ if not os.path.exists("Figures"):
     os.mkdir("Figures")
 
 
-try:
-    with open("Data/cm_convergence.json", "r") as file:
-        data = json.loads(file.read())
-except:
-    arglist = []
-    for dataset in datasets:
-        H = xgi.load_xgi_data(dataset, max_order=max_order)
-        H.cleanup(singletons=False)
+arglist = []
+for dataset in datasets:
+    H = xgi.load_xgi_data(dataset, max_order=max_order)
+    H.cleanup(singletons=False)
 
-        n = H.num_nodes
-        m = H.num_edges
-        # Initialize configuration model data
+    n = H.num_nodes
+    m = H.num_edges
+    # Initialize configuration model data
 
-        max_log = np.log10(10 * m)
+    max_log = np.log10(10 * m)
 
-        num_swaps = np.logspace(1, max_log, num_num_swaps).astype(int)
+    num_swaps = np.logspace(1, max_log, num_num_swaps).astype(int)
 
-        # configuration model
-        for nswaps in num_swaps:
-            arglist.append((H, dataset, nswaps, min_size))
-    cm_data = Parallel(n_jobs=num_processes)(
-        delayed(cm_in_parallel)(*arg) for arg in arglist
-    )
+    # configuration model
+    for nswaps in num_swaps:
+        arglist.append((H, dataset, nswaps, min_size))
+cm_data = Parallel(n_jobs=num_processes)(
+    delayed(cm_in_parallel)(*arg) for arg in arglist
+)
 
-    data = {d: defaultdict(list) for d in datasets}
-    for name, nswaps, sf, es, fes in cm_data:
-        data[name]["num-swaps"].append(int(nswaps))
-        data[name]["sf"].append(sf)
-        data[name]["es"].append(es)
-        data[name]["fes"].append(fes)
+data = {d: defaultdict(list) for d in datasets}
+for name, nswaps, sf, es, fes in cm_data:
+    data[name]["num-swaps"].append(int(nswaps))
+    data[name]["sf"].append(sf)
+    data[name]["es"].append(es)
+    data[name]["fes"].append(fes)
 
-    with open("Data/cm_convergence.json", "w") as file:
-        datastring = json.dumps(data, indent=2)
-        file.write(datastring)
+with open("Data/cm_convergence.json", "w") as file:
+    datastring = json.dumps(data, indent=2)
+    file.write(datastring)

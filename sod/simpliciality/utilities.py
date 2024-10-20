@@ -39,7 +39,7 @@ def powerset(iterable, min_size=1, max_size=None):
     )
 
 
-def count_subfaces(t, face, min_size=1):
+def count_missing_subfaces(t, face, min_size=1):
     """Computing the edit distance for a single face.
 
     Parameters
@@ -61,7 +61,7 @@ def count_subfaces(t, face, min_size=1):
     sub_edges = list(powerset(face, min_size=min_size, max_size=len(face) - 1))
     count = 0
     for e in sub_edges:
-        if t.search(e):
+        if not t.search(e):
             count += 1
 
     return count

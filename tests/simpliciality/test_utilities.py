@@ -1,6 +1,4 @@
-import xgi
-
-from sod import Trie, count_subfaces, max_number_of_subfaces, powerset
+from sod import Trie, count_missing_subfaces, max_number_of_subfaces, powerset
 
 
 def test_powerset():
@@ -37,14 +35,14 @@ def test_powerset():
     }
 
 
-def test_count_subfaces(h_missing_one_link):
+def test_count_missing_subfaces(h_missing_one_link):
     t = Trie()
     t.build_trie(h_missing_one_link.edges.members())
-    assert count_subfaces(t, {1}, min_size=2) == 0
-    assert count_subfaces(t, {2, 3}, min_size=2) == 0
-    assert count_subfaces(t, {2, 3}) == 2
-    assert count_subfaces(t, {1, 2, 3}) == 5
-    assert count_subfaces(t, {1, 2, 3}, min_size=2) == 2
+    assert count_missing_subfaces(t, {1}, min_size=2) == 0
+    assert count_missing_subfaces(t, {2, 3}, min_size=2) == 0
+    assert count_missing_subfaces(t, {2, 3}) == 0
+    assert count_missing_subfaces(t, {1, 2, 3}) == 1
+    assert count_missing_subfaces(t, {1, 2, 3}, min_size=2) == 1
 
 
 def test_max_number_of_subfaces():

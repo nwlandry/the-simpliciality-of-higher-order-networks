@@ -666,7 +666,14 @@ def draw_multilayer(
         )
         ax.add_collection3d(between_lines)
 
-    (x, y, s, c, ec, lw,) = zip(
+    (
+        x,
+        y,
+        s,
+        c,
+        ec,
+        lw,
+    ) = zip(
         *[
             (
                 pos[i][0],
