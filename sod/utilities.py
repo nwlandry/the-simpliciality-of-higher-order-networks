@@ -1,21 +1,6 @@
 import numpy as np
 
 
-def truncated_power_law(n, minval, maxval, r):
-    u = np.random.random(n)
-    a = minval ** (1 - r)
-    b = maxval ** (1 - r)
-    return {i: int(val) for i, val in enumerate((a + u * (b - a)) ** (1 / (1 - r)))}
-
-
-def truncated_power_law_mean(minval, maxval, r):
-    a = minval ** (2 - r)
-    b = maxval ** (2 - r)
-    c = minval ** (1 - r)
-    d = maxval ** (1 - r)
-    return (r - 1) / (r - 2) * (a - b) / (c - d)
-
-
 def list_of_lists_to_latex_table(data, column_labels, decimals=2):
     """list of lists and column labels to latex table
 
