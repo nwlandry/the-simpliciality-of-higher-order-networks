@@ -25,9 +25,7 @@ def test_edit_simpliciality(
     es = edit_simpliciality(h_missing_one_singleton, min_size=1)
     assert np.allclose(es, 5 / 6)
 
-    es = edit_simpliciality(
-        h_missing_one_singleton, min_size=1, exclude_min_size=False
-    )
+    es = edit_simpliciality(h_missing_one_singleton, min_size=1, exclude_min_size=False)
     assert np.allclose(es, 5 / 6)
 
     # h2
@@ -115,7 +113,7 @@ def test_edit_simpliciality_full_construction(
     es = edit_simpliciality_full_construction(
         h_links_and_triangles2, exclude_min_size=False
     )
-    assert np.allclose(es, 3/ 5)
+    assert np.allclose(es, 3 / 5)
 
     # test h1
     es = edit_simpliciality_full_construction(h1)
